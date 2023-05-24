@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     root 'devise/sessions#new'
   end
 
-  resources :products, only: %i[new create edit update destroy index]
+  resources :products
 
 
 end
