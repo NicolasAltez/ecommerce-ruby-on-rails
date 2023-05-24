@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-    before_action :authenticate_user!
-    load_and_authorize_resource
   
   
     def after_sign_in_path(resource)
