@@ -5,7 +5,10 @@ Rails.application.routes.draw do
     root 'devise/sessions#new'
   end
 
+  namespace :admin do
+    resources :user_management, path: 'users', except: [:show]
+  end
+  
+
   resources :products
-
-
 end
