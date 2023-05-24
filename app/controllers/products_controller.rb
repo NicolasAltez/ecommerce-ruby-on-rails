@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+    before_action :authenticate_user!
+    load_and_authorize_resource
 
     def index
         @products = Product.all
@@ -9,11 +11,16 @@ class ProductsController < ApplicationController
         @products
     end
 
-    def create 
-        @product = Product.new(products_params)
+    def create
+        @product = Product.new(product_params)
         @product.user_id = current_user.id
-        @product.save ? (notice : 'Product was successfully created.') : (alert : 'Something went wrong.')
-    end
+    
+        if @product.save
+          redirect_to products_path, notice: 'Product was successfully created.'
+        else
+          render :new
+        end
+      end
 
     def edit
         @product = Product.find(params[:id])
@@ -21,15 +28,20 @@ class ProductsController < ApplicationController
 
     def update
         @product = Product.find(params[:id])
-        @product.user_id = current_user.id
-        @product.update(product_params) ? (notice: 'Product was successfully updated.') : (alert : 'Something went wrong.')
-    end
+    
+        if @product.update(product_params)
+          redirect_to products_path, notice: 'Product was successfully updated.'
+        else
+          render :edit
+        end
+      end
 
-    def destroy
+      def destroy
         @product = Product.find(params[:id])
-        @product.user_id = current_user.id
-        @product.destroy ? (notice: 'Product was delete.') : (alert : 'Something went wrong.')
-    end
+        @product.destroy
+    
+        redirect_to products_path, notice: 'Product was successfully destroyed.'
+      end
 
     private
     

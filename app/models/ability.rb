@@ -4,14 +4,9 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    return unless user.admin?
-    can :manage, :all
-
-    return unless user.seller?  # additional permissions for sellers
-    can [:read, :create, :update, :destroy], Product, user_id: user.id
-
-    return unless user.buyer?  # additional permissions for buyers
-    can :destroy, CartItem, user_id: user.id
+    can :manage, :all if user.role? :admin
+    can [:read, :create, :update, :destroy], Product, user_id: user.id if user.role? :seller
+    can :destroy, CartItem, user_id: user.id if user.role? :buyer
   end
 end
 
