@@ -63,9 +63,9 @@ RSpec.describe ProductsController, type: :controller do
 
     context "with valid parameters" do
       it "updates the requested product and redirects to the products index page" do
-        patch :update, params: { id: product.id, product: { name: 'New Name' } }
+        patch :update, params: { id: product.id, product: { name: 'peñarol' } }
         product.reload
-        expect(product.name).to eq('New Name')
+        expect(product.name).to eq('peñarol')
         expect(response).to redirect_to(products_path)
       end
     end

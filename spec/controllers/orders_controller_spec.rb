@@ -29,7 +29,7 @@ RSpec.describe OrdersController, type: :controller do
   
       it "creates a new order and redirects to the order history page" do
         session[:cart] = { product.id => 1 }
-        post :create, params: { user_id: user.id } # Añade esta línea para asignar el usuario al pedido
+        post :create, params: { user_id: user.id }
         expect(user.orders.count).to eq(1)
         expect(session[:cart]).to eq({})
         expect(response).to redirect_to(order_history_path)
@@ -37,7 +37,7 @@ RSpec.describe OrdersController, type: :controller do
   
       it "redirects to the products page if there are no products in the cart" do
         session[:cart] = {}
-        post :create, params: { user_id: user.id } # Añade esta línea para asignar el usuario al pedido
+        post :create, params: { user_id: user.id }
         expect(response).to redirect_to(products_path)
       end
     end

@@ -2,15 +2,18 @@ class Admin::UserManagementController < ApplicationController
     before_action :authenticate_user!
 
     def index
+        authorize! :index, User
         @users = User.where(role: :seller)
     end
 
     def new
+        authorize! :new, User
         @user = User.new
     end
 
     def create
-        @user = User.new(user_param)
+        authorize! :create, User
+        @user = User.new(user_params)
         @user.role = :seller
 
         if @user.save
@@ -21,13 +24,15 @@ class Admin::UserManagementController < ApplicationController
     end
 
     def edit
+        authorize! :edit, User
         @user = User.find(params[:id])
     end
 
     def update 
+        authorize! :update, User
         @user = User.find(params[:id])
 
-        if @user.update(user_param)
+        if @user.update(user_params)
             redirect_to admin_user_management_index_path, notice: 'User was successfully updated'
         else
             render :edit
@@ -35,6 +40,7 @@ class Admin::UserManagementController < ApplicationController
     end
 
     def destroy
+        authorize! :destroy, User
         @user = User.find(params[:id])
         @user.destroy
     
@@ -43,7 +49,7 @@ class Admin::UserManagementController < ApplicationController
 
     private
 
-    def user_param
+    def user_params
         params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end      
 end
