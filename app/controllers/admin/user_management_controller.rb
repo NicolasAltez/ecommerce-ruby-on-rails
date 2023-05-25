@@ -17,7 +17,7 @@ class Admin::UserManagementController < ApplicationController
         @user.role = :seller
 
         if @user.save
-            redirect_to admin_user_management_index_path, notice: 'User was successfully created.'
+            redirect_to admin_user_management_index_path
         else
             render:new
         end
@@ -33,7 +33,7 @@ class Admin::UserManagementController < ApplicationController
         @user = User.find(params[:id])
 
         if @user.update(user_params)
-            redirect_to admin_user_management_index_path, notice: 'User was successfully updated'
+            redirect_to admin_user_management_index_path
         else
             render :edit
         end
@@ -44,7 +44,7 @@ class Admin::UserManagementController < ApplicationController
         @user = User.find(params[:id])
         @user.destroy
     
-        redirect_to admin_user_management_index_path, notice: 'User was successfully destroyed.'
+        redirect_to admin_user_management_index_path
     end
 
     private

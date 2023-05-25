@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
         @product.user_id = current_user.id
     
         if @product.save
-          redirect_to products_path, notice: 'Product was successfully created.'
+          redirect_to products_path
         else
           render :new
         end
@@ -30,7 +30,7 @@ class ProductsController < ApplicationController
         @product = Product.find(params[:id])
     
         if @product.update(product_params)
-          redirect_to products_path, notice: 'Product was successfully updated.'
+          redirect_to products_path
         else
           render :edit
         end
