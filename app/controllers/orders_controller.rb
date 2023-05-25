@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
         products = Product.where(id: product_ids)
       
         if products.empty?
-          redirect_to products_path
+          redirect_to shopping_cart_path
           return
         end
       
@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
           session[:cart] = {}
           redirect_to order_history_path
         else
-          redirect_to products_path, alert: 'Failed to place the order.'
+          redirect_to shopping_cart_path, alert: 'Failed to place the order.'
         end
       end
       
