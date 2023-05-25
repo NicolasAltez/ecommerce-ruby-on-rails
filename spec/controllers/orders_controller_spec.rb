@@ -24,7 +24,7 @@ RSpec.describe OrdersController, type: :controller do
   describe "POST #create" do
     context "with valid parameters" do
       let(:user) { create(:user, role: "buyer") }
-      let(:product) { create(:product) }
+      let(:product) { create(:product, user: user) }
       before { sign_in user }
   
       it "creates a new order and redirects to the order history page" do
@@ -38,7 +38,7 @@ RSpec.describe OrdersController, type: :controller do
       it "redirects to the products page if there are no products in the cart" do
         session[:cart] = {}
         post :create, params: { user_id: user.id }
-        expect(response).to redirect_to(products_path)
+        expect(response).to redirect_to(shopping_cart_path)
       end
     end
   
@@ -50,6 +50,7 @@ RSpec.describe OrdersController, type: :controller do
   end
 
   describe "GET #order_history" do
+    let(:user) { create(:user, role: "buyer") }
     it "assigns orders belonging to the current user to @orders and renders the order history template" do
       sign_in user
       order = create(:order, user: user)
