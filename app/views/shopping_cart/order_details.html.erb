@@ -1,0 +1,13 @@
+<h1>Order Details</h1>
+
+<h3>Order ID: <%= @order.id %></h3>
+<p>Date: <%= @order.order_date %></p>
+<p>Total: <%= @order.order_total %></p>
+
+<h4>Order Items:</h4>
+<% @order.order_items.each do |order_item| %>
+  <div>
+    <h5><%= order_item.product.name %></h5>
+    <p>Quantity: <%= order_item.quantity %></p>
+  </div>
+<% end %>

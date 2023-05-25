@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     elsif current_user.role?(:seller)
       products_path
     elsif current_user.role?(:buyer)
-      buyer_dashboard_path
+      shopping_cart_index_path
     else
       root_path
     end

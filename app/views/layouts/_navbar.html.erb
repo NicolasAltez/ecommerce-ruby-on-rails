@@ -1,0 +1,19 @@
+<nav class="menu-nav-bar">
+  <ul class="navbar-menu">
+    <% if user_signed_in? %>
+      <% if current_user.role?(:buyer)%>
+        <li><%= link_to 'Products', shopping_cart_index_path %></li>
+        <li><%= link_to 'Cart', shopping_cart_path %></li>
+      <% end %>
+      <li>
+        <%= form_tag destroy_user_session_path, method: :delete do %>
+            <%= submit_tag 'Logout' %>
+        <% end %>
+      </li>
+    <% else %>
+      <% unless current_page?(new_user_session_path) || current_page?(new_user_registration_path) %>
+        <li><%= link_to 'Login', new_user_session_path %></li>
+      <% end %>
+    <% end %>
+  </ul>
+</nav>

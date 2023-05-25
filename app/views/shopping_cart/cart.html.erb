@@ -1,0 +1,56 @@
+<% if flash[:alert] %>
+  <div class="alert alert-danger">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+<h1 class="shopping-cart-title">Shopping Cart</h1>
+
+<% if @products.any? %>
+  <h2 class="current-items-title">Current Items</h2>
+  <ul class="current-items-list">
+    <% @products.each do |product| %>
+      <div class="product-container">
+        <li>
+          <%= product.name %> - <%= number_to_currency(product.price) %> x <%= session[:cart][product.id.to_s] %>
+          <% if session[:cart][product.id.to_s] > 1 %>
+            <div class="remove-quantity-container">
+              <%= form_with url: remove_from_cart_product_path(product), method: :delete do |form| %>
+                <%= csrf_meta_tags %>
+                <div class="form-group">
+                  <%= form.label :quantity, "Remove Quantity" %>
+                  <%= form.select :quantity, options_for_select((1..session[:cart][product.id.to_s]).to_a) %>
+                  <%= form.submit 'Remove', class: 'remove-btn' %>
+                </div>
+              <% end %>
+            </div>
+            <%= form_with url: remove_all_from_cart_product_path(product), method: :delete do |form| %>
+              <%= csrf_meta_tags %>
+              <div class="form-group">
+                <%= form.submit 'Remove All', class: 'remove-all-btn' %>
+              </div>
+            <% end %>
+          <% else %>
+            <%= form_with url: remove_all_from_cart_product_path(product), method: :delete do |form| %>
+              <%= csrf_meta_tags %>
+              <div class="form-group">
+                <%= form.submit 'Remove All', class: 'remove-all-btn' %>
+              </div>
+            <% end %>
+          <% end %>
+        </li>
+      </div>
+    <% end %>
+  </ul>
+
+  <p class="total-price">Total Price: <%= number_to_currency(@total_price) %></p>
+
+  <%= form_with url: orders_path, method: :post do |form| %>
+    <%= csrf_meta_tags %>
+    <div class="form-group">
+      <%= form.submit 'Place Order', class: 'place-order-btn' %>
+    </div>
+  <% end %>
+<% else %>
+  <p class="empty-cart-msg">Your shopping cart is empty.</p>
+<% end %>
