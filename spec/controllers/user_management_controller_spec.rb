@@ -118,7 +118,7 @@ RSpec.describe Admin::UserManagementController, type: :controller do
       it "does not update the user and renders the edit template" do
         put :update, params: invalid_params
         user_to_update.reload
-        expect(user_to_update.email).not_to eq("updated@example.com")
+        expect(user_to_update.email).not_to eq("fernandez@example.com")
         expect(response).to render_template(:edit)
       end
     end
