@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :orders
   has_many :products, through: :orders
 
-  validates :name, :email, :password, presence: true
+  validates :name, :email, :password, :role, presence: true
   validates :email, uniqueness: true
 
   ROLES = %i[admin seller buyer]

@@ -6,16 +6,21 @@ class ShoppingCartController < ApplicationController
     end
   
     def add_to_cart
-        authorize! :add_to_cart, Product
-        product = Product.find(params[:id])
-        quantity = params[:quantity].to_i
+      authorize! :add_to_cart, Product
+      product = Product.find(params[:id])
+      quantity = params[:quantity].to_i
     
-        session[:cart] = {} unless session[:cart].is_a?(Hash)
-        session[:cart][product.id] ||= 0
-        session[:cart][product.id] += quantity
+      session[:cart] ||= {} # Usar un hash vacío por defecto si no existe
     
-        redirect_to shopping_cart_path
+      if session[:cart].key?(product.id.to_s)
+        session[:cart][product.id.to_s] += quantity
+      else
+        session[:cart][product.id.to_s] = quantity
+      end
+    
+      redirect_to shopping_cart_path
     end
+    
   
     def remove_from_cart
         authorize! :remove_from_cart, Product
