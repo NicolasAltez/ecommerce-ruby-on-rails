@@ -17,6 +17,7 @@ class OrdersController < ApplicationController
         end
       
         order.products << products
+        order.order_total = products.sum { |product| product.price * session[:cart][product.id.to_s].to_i }
       
         if order.save
           session[:cart] = {}
@@ -27,12 +28,7 @@ class OrdersController < ApplicationController
       end
       
       def order_history
-        @orders = current_user.orders.includes(products: :order_items)
-      
-        @orders.each do |order|
-          order.calculate_total
-        end
-      
+        @orders = current_user.orders.includes(products: :order_items)      
         render :order_history
       end
       
