@@ -1,7 +1,5 @@
 class Admin::UserManagementController < ApplicationController
     before_action :authenticate_user!
-    load_and_authorize_resource class: User
-
 
     def index
         @users = User.where(role: :seller)
@@ -46,6 +44,6 @@ class Admin::UserManagementController < ApplicationController
     private
 
     def user_param
-        params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
+        params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end      
 end
