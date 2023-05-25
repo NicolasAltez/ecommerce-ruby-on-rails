@@ -17,7 +17,8 @@ Rails.application.routes.draw do
   delete 'shopping_cart/remove_from_cart/:id', to: 'shopping_cart#remove_from_cart', as: 'remove_from_cart_product'
   delete 'shopping_cart/remove_all_from_cart/:id', to: 'shopping_cart#remove_all_from_cart', as: 'remove_all_from_cart_product'
   post 'shopping_cart/generate_order', to: 'shopping_cart#generate_order', as: 'generate_order'
+  get 'order_history', to: 'orders#order_history', as: 'order_history'
+
   
   resources :products
-  resources :orders
 end

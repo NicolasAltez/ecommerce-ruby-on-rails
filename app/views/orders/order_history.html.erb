@@ -1,0 +1,30 @@
+<h1 class="order-history-title">Order History</h1>
+
+<% if @orders.any? %>
+  <table class="order-history-table">
+    <thead>
+      <tr>
+        <th>Order Date</th>
+        <th>Products</th>
+        <th>Total Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= order.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+          <td>
+            <ul>
+              <% order.products.each do |product| %>
+                <li><%= product.name %></li>
+              <% end %>
+            </ul>
+          </td>
+          <td><%= number_to_currency(order.order_total) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No orders found.</p>
+<% end %>

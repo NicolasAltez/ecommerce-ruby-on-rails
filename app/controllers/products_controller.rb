@@ -3,8 +3,8 @@ class ProductsController < ApplicationController
     load_and_authorize_resource
 
     def index
-        @products = Product.all
         @current_user = current_user
+        @products = Product.where(user_id: @current_user.id)
     end
 
     def new

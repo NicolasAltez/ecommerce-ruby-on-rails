@@ -4,6 +4,7 @@
       <% if current_user.role?(:buyer)%>
         <li><%= link_to 'Products', shopping_cart_index_path %></li>
         <li><%= link_to 'Cart', shopping_cart_path %></li>
+        <li><%= link_to 'Order History', order_history_path %></li>
       <% end %>
       <li>
         <%= form_tag destroy_user_session_path, method: :delete do %>

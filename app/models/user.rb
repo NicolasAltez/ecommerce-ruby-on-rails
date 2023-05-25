@@ -4,7 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :validatable
 
-  has_many :products
+  has_many :orders
+  has_many :products, through: :orders
+
+  validates :name, :email, :password, presence: true
+  validates :email, uniqueness: true
 
   ROLES = %i[admin seller buyer]
 

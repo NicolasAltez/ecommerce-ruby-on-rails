@@ -4,6 +4,9 @@ class Order < ApplicationRecord
   has_many :products, through: :order_items
 
   def calculate_total
-    self.order_total = order_items.sum(:subtotal)
+    total = order_items.map { |item| item.product.price }.sum
+    self.order_total = total
+    save
   end
+  
 end
