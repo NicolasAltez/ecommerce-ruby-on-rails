@@ -5,7 +5,12 @@ class Ability
 
   def initialize(user)
     can :manage, User if user.role? :admin
-    can [:read, :create, :update, :destroy], Product, user_id: user.id if user.role? :seller
+
+    if user.role? :seller
+      can [:read, :create, :update, :destroy], Product, user_id: user.id
+      can :manage, Product, user_id: user.id
+    end
+
     if user.role? :buyer
       can [:read, :create], Order, user_id: user.id 
       can :order_history, Order
@@ -16,4 +21,5 @@ class Ability
     end
   end
 end
+
 
