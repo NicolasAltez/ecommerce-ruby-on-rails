@@ -10,7 +10,7 @@ class ShoppingCartController < ApplicationController
       product = Product.find(params[:id])
       quantity = params[:quantity].to_i
     
-      session[:cart] ||= {} # Usar un hash vacío por defecto si no existe
+      session[:cart] ||= {} 
     
       if session[:cart].key?(product.id.to_s)
         session[:cart][product.id.to_s] += quantity
