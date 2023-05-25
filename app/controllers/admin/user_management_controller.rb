@@ -2,6 +2,7 @@ class Admin::UserManagementController < ApplicationController
     before_action :authenticate_user!
     load_and_authorize_resource class: User
 
+
     def index
         @users = User.where(role: :seller)
     end
@@ -11,7 +12,7 @@ class Admin::UserManagementController < ApplicationController
     end
 
     def create
-        @user = User.new(user_params)
+        @user = User.new(user_param)
         @user.role = :seller
 
         if @user.save
@@ -28,7 +29,7 @@ class Admin::UserManagementController < ApplicationController
     def update 
         @user = User.find(params[:id])
 
-        if @user.update(user_params)
+        if @user.update(user_param)
             redirect_to admin_user_management_index_path, notice: 'User was successfully updated'
         else
             render :edit
@@ -44,7 +45,7 @@ class Admin::UserManagementController < ApplicationController
 
     private
 
-    def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    end
+    def user_param
+        params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
+    end      
 end
