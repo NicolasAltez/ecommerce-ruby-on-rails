@@ -45,10 +45,7 @@ RSpec.describe 'Order Management', type: :feature do
   describe 'User can place an order' do
     it 'creates a new order successfully' do
       product = create(:product, name: 'Product 1', description: 'Description 1', price: 10, user: user)
-
-      allow_any_instance_of(ApplicationController).to receive(:user_signed_in?).and_return(true)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-      allow_any_instance_of(ApplicationController).to receive(:cart).and_return({ product.id.to_s => 1 })
+      #product.id.to_s => 1
 
       visit order_history_path
 

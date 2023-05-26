@@ -15,5 +15,4 @@ class User < ApplicationRecord
   def role?(role)
     self.role.to_sym == role.to_sym
   end
-       
 end
