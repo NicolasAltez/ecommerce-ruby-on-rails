@@ -63,13 +63,16 @@ RSpec.describe 'Admin::UserManagementController', type: :feature do
 
       expect(page).to have_content('Edit Seller User')
 
-      fill_in 'Name', with: 'userActualizado'
-      fill_in 'Email', with: 'userActualizado@gmail.com'
+      fill_in 'Name', with: 'useractualizado'
+      fill_in 'Email', with: 'useractualizado@gmail.com'
+      fill_in 'Password', with: 'updated'
+      fill_in 'Password confirmation', with: 'updated'
 
       click_button 'Save'
 
-      expect(page).to have_content('userActualizado')
-      expect(page).to have_content('userActualizado@gmail.com')
+      expect(page).to have_content('useractualizado')
+      expect(page).to have_content('useractualizado@gmail.com')
+
     end
 
     it 'displays error messages when update fails' do
