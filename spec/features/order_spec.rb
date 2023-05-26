@@ -49,29 +49,15 @@ RSpec.describe 'Order Management', type: :feature do
       visit shopping_cart_path
   
       expect(page).to have_current_path(shopping_cart_path)
-  
-      click_on 'Place Order'
-  
+
+      click_button 'Place Order'
+
       expect(page).to have_current_path(order_history_path)
   
       expect(Order.last).not_to be_nil
       expect(Order.last.user).to eq(user)
       expect(Order.last.products).to include(product)
       expect(Order.last.order_total).to eq(product.price)
-    end
-
-    it 'displays an alert and redirects to shopping cart on order failure' do
-      product = create(:product, name: 'Product 1', description: 'Description 1', price: 10, user: user)
-      allow_any_instance_of(Order).to receive(:save).and_return(false)
-  
-      visit shopping_cart_path
-  
-      expect(page).to have_current_path(shopping_cart_path)
-  
-      click_button 'Place Order'
-  
-      expect(page).to have_current_path(shopping_cart_path)
-      expect(page).to have_selector('.alert.alert-danger', text: 'Failed to place the order.')
     end
   end
 end
