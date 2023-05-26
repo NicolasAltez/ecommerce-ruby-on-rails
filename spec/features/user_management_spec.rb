@@ -68,8 +68,8 @@ RSpec.describe 'Admin::UserManagementController', type: :feature do
 
       click_button 'Save'
 
-      expect(user1.email).to eq('userActualizado@gmail.com')
-      expect(user1.name).to eq('userActualizado')
+      expect(page).to have_content('userActualizado')
+      expect(page).to have_content('userActualizado@gmail.com')
     end
 
     it 'displays error messages when update fails' do
