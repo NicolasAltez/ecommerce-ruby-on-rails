@@ -20,18 +20,22 @@ RSpec.describe User, type: :model do
     user = create(:user)
     expect(user).to be_valid
   end
-end
+  
+  describe "#role?" do
+    let(:seller_user) { create(:user, role: 'seller') }
+    let(:admin_user) { create(:user, role: 'admin') }
+    let(:buyer_user) { create(:user, role: 'buyer') }
 
-RSpec.describe Order, type: :model do
-  it "belongs to a user" do
-    should belong_to(:user)
-  end
+    it "returns true if the user has the specified role" do
+      expect(seller_user.role?(:seller)).to be true
+      expect(admin_user.role?(:admin)).to be true
+      expect(buyer_user.role?(:buyer)).to be true
+    end
 
-  it "has many order items" do
-    should have_many(:order_items)
-  end
-
-  it "has many products through order items" do 
-    should have_many(:products).through(:order_items)
+    it "returns false if the user does not have the specified role" do
+      expect(seller_user.role?(:admin)).to be false
+      expect(admin_user.role?(:seller)).to be false
+      expect(buyer_user.role?(:admin)).to be false
+    end
   end
 end

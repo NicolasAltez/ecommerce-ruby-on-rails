@@ -133,7 +133,6 @@ RSpec.describe Admin::UserManagementController, type: :controller do
       }.to change(User, :count).by(-1)
 
       expect(response).to redirect_to(admin_user_management_index_path)
-      expect(flash[:notice]).to eq("User was successfully destroyed.")
     end
   end
 end

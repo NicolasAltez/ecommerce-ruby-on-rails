@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe ShoppingCartController, type: :controller do
   include Devise::Test::ControllerHelpers
 
-  let(:user) { create(:user) }
-  let(:product) { create(:product, user: user) }
+  let!(:user) { create(:user, role: 'buyer') }
+  let!(:product) { create(:product, user: user) }
 
   before do
     sign_in user

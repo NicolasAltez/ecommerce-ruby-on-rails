@@ -14,10 +14,7 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td>
-          <%= form_with(model: user, url: edit_admin_user_management_path(user), method: :patch) do |form| %>
-            <%= form.submit 'Edit' %>
-          <% end %>
-
+          <%= link_to 'Edit', edit_admin_user_management_path(user), method: :post %>
           <%= form_with(url: admin_user_management_path(user), method: :delete) do |form| %>
             <%= form.submit 'Delete'%>
           <% end %>
