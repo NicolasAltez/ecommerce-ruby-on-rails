@@ -45,6 +45,8 @@ RSpec.describe 'Order Management', type: :feature do
   describe 'User can place an order' do
     it 'creates a new order successfully' do
       product = create(:product, name: 'Product 1', description: 'Description 1', price: 10, user: user)
+      visit root_path
+      click_button 'Add to Cart'
   
       visit shopping_cart_path
   
